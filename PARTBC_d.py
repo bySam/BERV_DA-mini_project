@@ -25,10 +25,18 @@ for i in range(201):
 
 # plot magnitude of omegas
 plt.figure(1)
-plt.plot(time, norms)
+plt.xlabel('Time')
+plt.ylabel('Magnitude')
+plt.title('Magnitude of omegas')
+plt.plot(time, norms, label='Magnitude')
+plt.legend()
 
-# plot magnitude of omegas starting from t = 10, smoothed with moving_average()
+# plot magnitude of omegas starting from t = 10, smoothed with moving_average() (window=10)
 norms_smooth = moving_average(norms[10:], 10)
 plt.figure(2)
-plt.plot(time[10:], norms_smooth)
+plt.xlabel('Time')
+plt.ylabel('Magnitude')
+plt.title('Magnitude of omegas starting from t=0 - smoothed ')
+plt.plot(time[10:], norms_smooth, label='Magnitude')
+plt.legend()
 

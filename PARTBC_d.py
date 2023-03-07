@@ -1,8 +1,8 @@
-### Plot reference solutions from training_matrix 
+### Plot magnitude of omegas in weight matrix W.
 import numpy as np
 from matplotlib import pyplot as plt
 
-def moving_average(A, N):
+def moving_average(A, N): # Moving average function from Lab2 part 2 on studium
     """A function that calculates the moving average of an array A, based on a rolling window of size N. 
     The function returns the resulting array B containing the moving average. 
     The first N-1 elements of B contains the moving average based on the assumption that the previous 10 
@@ -18,14 +18,17 @@ def moving_average(A, N):
 A = np.genfromtxt('train_ts.csv', delimiter=',')
 P = np.genfromtxt('samples.csv', delimiter=',')
 W = np.linalg.pinv(A)@P
-W = np.delete(W, (0, 1, 2, 3, 4, 5, 6, 7, 8, 9), axis=0)
-norms = np.zeros(191)
-for i in range(191):
+time = np.arange(0, 201, 1)
+norms = np.zeros(201)
+for i in range(201):
     norms[i] = np.linalg.norm(W[i])
-time = np.arange(0,191,1)
-moving_average = moving_average(norms, 10)
-plt.title('Magnitude of Omegas')
-plt.xlabel('Time')
-plt.ylabel('Magnitude')
-plt.plot(time, moving_average, label='Magnitude(norm)')
-plt.legend()
+
+# plot magnitude of omegas
+plt.figure(1)
+plt.plot(time, norms)
+
+# plot magnitude of omegas starting from t = 10, smoothed with moving_average()
+norms_smooth = moving_average(norms[10:], 10)
+plt.figure(2)
+plt.plot(time[10:], norms_smooth)
+
